@@ -1,11 +1,11 @@
 package com.quizcomm.controller;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -18,11 +18,24 @@ public class UserController {
 	@Autowired
 	private UserBo userBo;
 	
-	@RequestMapping("/user")
-	public String listContacts(Map<String, Object> map) {
+	@RequestMapping(value="/user",method=RequestMethod.GET)
+	public String defaultPage(ModelMap model) {
 
-		map.put("user", new User());
-		//map.put("userList", contactService.listContact());
+		
+		User user = new User();
+		user.setName("NameTest");
+		user.setUserId("userID");
+		user.setStatus(5);
+		
+		model.addAttribute("user", user);
+
+		return "user";
+	}
+	
+	@RequestMapping(value="/user/{userId}",method=RequestMethod.GET)
+	public String getUser(@PathVariable String userId, ModelMap model) {
+		
+		model.addAttribute("user", userBo.getUser(userId));
 
 		return "user";
 	}

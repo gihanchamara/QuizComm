@@ -11,17 +11,27 @@ public class UserBoImpl implements UserBo {
 	@Autowired
 	private UserDao userDao;
 	
+	
 	public void addUser(User user) {
 		userDao.addUser(user);
 	}
 
-	public UserDao getUserFao() {
+	public User getUser(String userId) {
+		return userDao.getUser(userId);
+	}
+
+	
+	public UserDao getUserDao() {
 		return userDao;
 	}
 
-	public void setUserFao(UserDao userFao) {
-		this.userDao = userFao;
+	public void setUserDao(UserDao userDao) {
+		this.userDao = userDao;
 	}
+
+
+
+	
 
 	
 }

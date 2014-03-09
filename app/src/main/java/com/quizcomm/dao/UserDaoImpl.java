@@ -20,9 +20,16 @@ public class UserDaoImpl implements UserDao {
 		getCurrentSession().save(user);
 	}
 	
+	@Transactional
+	public User getUser(String userId) {
+		return (User)getCurrentSession().get(User.class,userId);
+	}
+	
 	private Session getCurrentSession(){
 		return sessionFactory.getCurrentSession();
 	}
+
+	
 	
 
 }
