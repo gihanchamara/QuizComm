@@ -32,7 +32,7 @@ public class UserController {
 		return "user";
 	}
 	
-	@RequestMapping(value="/user/{userId}",method=RequestMethod.GET)
+	@RequestMapping(value="/member/user/{userId}",method=RequestMethod.GET)
 	public String getUser(@PathVariable String userId, ModelMap model) {
 		
 		model.addAttribute("user", userBo.getUser(userId));
@@ -40,7 +40,7 @@ public class UserController {
 		return "user";
 	}
 	
-	@RequestMapping(value = "/user/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/member/user/add", method = RequestMethod.POST)
 	public String addContact(@ModelAttribute("user")
 	User user, BindingResult result) {
 		user.setStatus(0);

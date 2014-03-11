@@ -19,6 +19,9 @@ public class User {
 	@Column(name="status")
 	private Integer status;
 	
+	@Column(name="password")
+	private String password;
+	
 	public String getUserId() {
 		return userId;
 	}
