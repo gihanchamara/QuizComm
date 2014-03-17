@@ -23,9 +23,9 @@ public class UserController {
 
 		
 		User user = new User();
-		user.setName("NameTest");
+		user.setLastName("NameTest");
 		user.setUserId("userID");
-		user.setStatus(5);
+		user.setStatus("ACTIVE");
 		
 		model.addAttribute("user", user);
 
@@ -43,7 +43,7 @@ public class UserController {
 	@RequestMapping(value = "/member/user/add", method = RequestMethod.POST)
 	public String addContact(@ModelAttribute("user")
 	User user, BindingResult result) {
-		user.setStatus(0);
+		user.setStatus("ACTIVE");
 		userBo.addUser(user);
 		return "redirect:/user";
 	}

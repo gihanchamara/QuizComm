@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Quizcomm</title>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/uikit/uikit.css">
         <script src="${pageContext.request.contextPath}/resources/jquery/jquery.js"></script>
         <script src="${pageContext.request.contextPath}/resources/uikit/uikit.js"></script>
         <script src="${pageContext.request.contextPath}/resources/uikit/sticky.js"></script>
