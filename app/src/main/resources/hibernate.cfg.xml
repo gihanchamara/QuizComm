@@ -7,6 +7,7 @@
 <hibernate-configuration>
     <session-factory>
           <mapping class="com.quizcomm.dom.User" />
+           <mapping class="com.quizcomm.dom.Quiz" />
     </session-factory>
 	    
 </hibernate-configuration>

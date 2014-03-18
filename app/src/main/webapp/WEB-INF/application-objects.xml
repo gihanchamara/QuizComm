@@ -17,7 +17,10 @@
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
 	<bean id="userDao" class="com.quizcomm.dao.UserDaoImpl"/>
+	<bean id="quizDao" class="com.quizcomm.dao.QuizDaoImpl"/>
+	
 	<bean id="userBo" class="com.quizcomm.bo.UserBoImpl"/>
+	<bean id="quizBo" class="com.quizcomm.bo.QuizBoImpl"/>
 
 
 

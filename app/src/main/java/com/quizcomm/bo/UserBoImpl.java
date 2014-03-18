@@ -29,6 +29,10 @@ public class UserBoImpl implements UserBo {
 		this.userDao = userDao;
 	}
 
+	public User getUserByPK(Long id) {
+		return userDao.getUserByPK(id);
+	}
+
 
 
 	

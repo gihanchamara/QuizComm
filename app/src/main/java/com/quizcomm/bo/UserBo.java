@@ -6,5 +6,6 @@ public interface UserBo {
 	
 	public void addUser(User user);
 	public User getUser(String userId);
+	public User getUserByPK(Long id);
 
 }

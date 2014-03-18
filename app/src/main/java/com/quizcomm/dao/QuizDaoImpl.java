@@ -6,29 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.quizcomm.dom.User;
-
+import com.quizcomm.dom.Quiz;
 
 @Repository
-public class UserDaoImpl implements UserDao {
+public class QuizDaoImpl implements QuizDao {
 
 	@Autowired
 	private SessionFactory sessionFactory;
 	
 	@Transactional
-	public void addUser(User user) {
-		getCurrentSession().save(user);
-	}
-	
-	@Transactional
-	public User getUser(String userId) {
-		return (User)getCurrentSession().get(User.class,userId);
-	}
-	
-	@Transactional
-	public User getUserByPK(Long id) {
-
-		return (User)getCurrentSession().get(User.class,id);
+	public void createQuiz(Quiz quiz) {
+		getCurrentSession().save(quiz);
 	}
 	
 	private Session getCurrentSession(){

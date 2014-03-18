@@ -26,7 +26,7 @@ public class User {
 	private String email;
 	
 	@Column(name="Role")
-	private Integer role;
+	private String role;
 	
 	@Column(name="FirstName")
 	private String firstName;
@@ -59,7 +59,7 @@ public class User {
 		return id;
 	}
 	
-	@OneToMany(mappedBy="Quiz",fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="owner",fetch = FetchType.LAZY)
     private Set<Quiz> quizzes;
 
 	public void setId(Long id) {
@@ -82,12 +82,22 @@ public class User {
 		this.email = email;
 	}
 
-	public Integer getRole() {
+	
+
+	public String getRole() {
 		return role;
 	}
 
-	public void setRole(Integer role) {
+	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public Set<Quiz> getQuizzes() {
+		return quizzes;
+	}
+
+	public void setQuizzes(Set<Quiz> quizzes) {
+		this.quizzes = quizzes;
 	}
 
 	public String getFirstName() {
