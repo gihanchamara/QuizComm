@@ -23,7 +23,7 @@
 					select UserId as username ,Password as password, status as enabled 
 					from User where UserId=?" 
 				
-				authorities-by-username-query="select  u.role as authority from user u where u.UserId=?" 
+				authorities-by-username-query="select u.UserId as username, u.role as authority from user u where u.UserId=?" 
 			/>
 		</authentication-provider>
 	</authentication-manager>
