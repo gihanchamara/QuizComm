@@ -6,10 +6,11 @@
 	http://www.springframework.org/schema/security/spring-security-3.0.3.xsd">
 
 	<http auto-config="true">
-		<intercept-url pattern="/member*" access="ROLE_USER" />
-		<intercept-url pattern="/quiz*" access="ROLE_USER" />
+		<intercept-url pattern="/user*" access="ROLE_USER" />
+		<!-- <intercept-url pattern="/quiz*" access="ROLE_USER" /> -->
 		<intercept-url pattern="/admin*" access="ROLE_ADMIN" />
-		<form-login login-page="/login" default-target-url="/member/user"
+		<intercept-url pattern="/loginsuccess" access="ROLE_USER,ROLE_ADMIN"/>
+		<form-login login-page="/login" default-target-url="/loginsuccess"
 			authentication-failure-url="/loginfailed.json" />
 		<logout logout-success-url="/logout" />
 	</http>

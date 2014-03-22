@@ -1,6 +1,8 @@
 package com.quizcomm.dom;
 
-import java.sql.Date;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,11 +12,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name="Quiz")
-public class Quiz {
+public class Quiz implements Serializable {
+	
+	private static final long serialVersionUID = 374483557990285985L;
+
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="QuizId")
 	private Long id;
@@ -32,11 +41,17 @@ public class Quiz {
 	@Column(name="Status")
 	private String status;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="CreatedDate")
 	private Date createdDate;
 	
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name="ModifiedData")
 	private Date modifiedData;
+	
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "quiz")
+	List<Question> questions; 
 
 	public Long getId() {
 		return id;
@@ -93,5 +108,14 @@ public class Quiz {
 	public void setModifiedData(Date modifiedData) {
 		this.modifiedData = modifiedData;
 	}
+
+	@Transient
+	public List<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(List<Question> questions) {
+		this.questions = questions;
+	}	
 	
 }

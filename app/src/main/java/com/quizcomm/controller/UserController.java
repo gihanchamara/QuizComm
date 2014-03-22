@@ -1,5 +1,7 @@
 package com.quizcomm.controller;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -13,26 +15,19 @@ import com.quizcomm.bo.UserBo;
 import com.quizcomm.dom.User;
 
 @Controller
+@RequestMapping("/user")
 public class UserController {
 	
 	@Autowired
 	private UserBo userBo;
 	
-	@RequestMapping(value="/user",method=RequestMethod.GET)
+	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String defaultPage(ModelMap model) {
 
-		
-		User user = new User();
-		user.setLastName("NameTest");
-		user.setUserId("userID");
-		user.setStatus("ACTIVE");
-		
-		model.addAttribute("user", user);
-
-		return "user";
+		return "redirect:/user/home";
 	}
 	
-	@RequestMapping(value="/member/user/{userId}",method=RequestMethod.GET)
+	@RequestMapping(value="/{userId}",method=RequestMethod.GET)
 	public String getUser(@PathVariable String userId, ModelMap model) {
 		
 		model.addAttribute("user", userBo.getUser(userId));
@@ -40,11 +35,17 @@ public class UserController {
 		return "user";
 	}
 	
-	@RequestMapping(value = "/member/user/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addContact(@ModelAttribute("user")
 	User user, BindingResult result) {
 		user.setStatus("ACTIVE");
 		userBo.addUser(user);
 		return "redirect:/user";
+	}
+	
+	@RequestMapping(value = "/home", method = RequestMethod.POST)
+	public String memberHome(HttpSession session,@ModelAttribute("user")
+	User user, BindingResult result) {
+		return "userHome";
 	}
 }
