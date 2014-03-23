@@ -16,7 +16,7 @@ function pageLoadFunctions(){
 		 quiz = {
 				"title":$('#create_quiz_title').val(),
 				"type":$('#create_quiz_type').val(),
-				"id":$('#quizId').val(),
+				"id":$('#quiz_id').val(),
 				"questions":[]
 			 };
 		
@@ -47,11 +47,12 @@ function addNewChkBoxQuestion(){
 		
 		 quiz.title = $('#create_quiz_title').val();
 		 quiz.type = $('#create_quiz_type').val();
-		 quiz.id = 	$('#quizId').val();
+		 quiz.id = 	$('#quiz_id').val();
 		
 		 var question = {
-				 	"content":$('#question_title').val(),
-				 	"answers":[]
+				 	"title":$('#question_title').val(),
+				 	"answers":[],
+				 	"type":"multi"
 				 };
 		 
 		 questionCount++;
@@ -94,23 +95,21 @@ function addNewChkBoxQuestion(){
 
 
 
+function editQuestion(){
+	
+}
+
 
 /** Create Quiz Ajax Function**/
 function createQuiz(jsonQuizObject){
 	
 	$.ajax({
 	    contentType: 'application/json',
-	    data:JSON.stringify(jsonQuizObject
-//	    		{
-//	    			//"quiz":{
-//	    				"title":$('#create_quiz_title').val(),
-//	    				"type":$('#create_quiz_type').val()
-//	    			//}
-//	    		}
-	    ),
+	    data:JSON.stringify(jsonQuizObject),
 	    dataType: 'json',
 	    success: function(data){
 	        //app.log("Create Quiz Succeeded");
+	    	updateUI(data);
 	    },
 	    error: function(){
 	        //app.log("Create Quiz Failed");
@@ -119,9 +118,78 @@ function createQuiz(jsonQuizObject){
 	    type: 'POST',
 	    url: 'createQuizJson.json'
 	});
-	
+}
+
+function updateUI(questionData){
+	console.log(questionData);
+	if(questionData!=null){
+		 //quiz = questionData;
+		 $('#create_quiz_title').val(questionData.title);
+		 $('#create_quiz_type').val(questionData.type);
+		 $('#quiz_id').val(questionData.id);
+		 questionCount = questionData.questions.length;
+		 
+		 var questionContent = "";
+		 
+		 if(questionCount>0){
+			 questionData.questions.forEach(function(question) {
+				 var qId = question.questionId;
+				 questionContent += '<div id="created_question_container_' + qId + '" >';
+				 questionContent += '<form id="created_question_form_'+ qId + '" onsubmit="return false;" >';
+				 questionContent += '<input type="hidden" name="question_id_' + qId + '" id="question_id_'+ qId +'" value="'+qId+'">';
+				 questionContent += '<input type="hidden" name="question_type_' + qId + '" id="question_type_'+ qId +'" value="'+question.type+'">';
+				 questionContent += '<fieldset>';
+				 questionContent += '<legend>Question Title</legend>';
+				 questionContent +=  '<div class="uk-form-row"> <textarea rows="5" cols="10" id="question_title_'+ qId +'" name="question_title_'+ qId +'">'+ question.title +'</textarea> </div>';
+				 questionContent +=  '<div id="check_box_question_set_'+ qId +'">';
+				 questionContent +=  '<legend>Answers</legend>';
+				
+				 question.answers.forEach(function(answer) {
+					 questionContent += '<div class="uk-form-row">';
+					 if(question.type=='single'){
+						 questionContent +=	'<input type="radio" id="chk_answer_correct_'+ answer.id +'" name="chk_answer_correct_'+ answer.id +'"';
+					 }else{
+						 questionContent +=	'<input type="checkbox" id="chk_answer_correct_'+ answer.id +'" name="chk_answer_correct_'+ answer.id +'"';
+					 }
+					 
+					 if(answer.correct){
+						 questionContent += ' checked';
+					 }
+					 
+					 questionContent += '>';
+					 questionContent +=	'<textarea rows="1" cols="75" id="chk_answer_text_'+ answer.id +'" name="chk_answer_text_'+ answer.id +'" class="uk-form-width-large">'+answer.title+'</textarea>';
+					 questionContent += '</div>';
+				 });
+				
+				 
+				    console.log(question);
+				    
+				 questionContent += '<div class="uk-form-row">';
+				 questionContent += '<button id="edit_question_' + qId + '" class="uk-button"> Edit </button>' ;
+				 questionContent += '<button id="delete_question_' + qId + '" class="uk-button"> Delete </button>' ;
+				 questionContent += '</div>';
+				    
+				 questionContent +=  '</div>';
+				 questionContent += '</fieldset>';
+				 questionContent += '</form>';
+				 questionContent += '</div>';
+			 });
+			 
+			 
+		 }
+		 
+		 $('#question_details_content').html(questionContent);
+		 
+		 
+	}
 	
 }
+
+function loadCreatedQuestions(questionData){
+	console.log(questionData); // log
+}
+
+
 
 
 

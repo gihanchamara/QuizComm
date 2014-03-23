@@ -59,7 +59,7 @@
 
 
 
-		<div class="uk-grid" data-uk-grid-margin="">
+		<div class="uk-grid" class="data-uk-grid-margin">
 			<div class="uk-width-medium-3-4">
 				<h3>Create Quiz</h3>
 				<input type="hidden" name="quiz_id" id="quiz_id">
@@ -89,7 +89,7 @@
 					<span>5.</span> Display question form <a id="add_chk_box_question" title="Add Question" href="#check_box_question_form">Try now</a>
 				<p>
 
-				<div class="uk-width-large-1-2" id="question_details_content">
+				<div id="question_details_content">
 					
 				</div>
 
@@ -117,7 +117,6 @@
 	<!--  Question forms -->
 	<div style="display: none">
 		<form id="check_box_question_form" onsubmit="return false;" >
-		
 				<fieldset>
 			        <legend>Question Title</legend>
 			        <div class="uk-form-row"> <textarea rows="5" cols="10" id="question_title" name="question_title"></textarea> </div>

@@ -4,6 +4,6 @@ import com.quizcomm.dom.Quiz;
 
 public interface QuizDao {
 	
-	public void createQuiz(Quiz quiz);
+	public Quiz createQuiz(Quiz quiz);
 
 }

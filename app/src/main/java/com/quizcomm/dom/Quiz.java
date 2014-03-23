@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,7 +17,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
+
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonManagedReference;
 
 @Entity
 @Table(name="Quiz")
@@ -34,8 +38,10 @@ public class Quiz implements Serializable {
 	@Column(name="Type")
 	private String type;
 	
+	
 	@ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="Owner")
+	@JsonIgnore
 	private User owner;
 	
 	@Column(name="Status")
@@ -50,7 +56,10 @@ public class Quiz implements Serializable {
 	private Date modifiedData;
 	
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "quiz")
+	@OneToMany(fetch = FetchType.LAZY , mappedBy = "quiz",cascade=CascadeType.ALL)
+	//@Cascade({CascadeType.ALL})
+	//@JoinColumn(name="QuizId", nullable=false)
+	@JsonManagedReference
 	List<Question> questions; 
 
 	public Long getId() {
@@ -77,10 +86,12 @@ public class Quiz implements Serializable {
 		this.type = type;
 	}
 
+	@JsonIgnore
 	public User getOwner() {
 		return owner;
 	}
 
+	@JsonIgnore
 	public void setOwner(User owner) {
 		this.owner = owner;
 	}
@@ -109,7 +120,8 @@ public class Quiz implements Serializable {
 		this.modifiedData = modifiedData;
 	}
 
-	@Transient
+	
+	@JsonManagedReference
 	public List<Question> getQuestions() {
 		return questions;
 	}

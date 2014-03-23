@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -12,6 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+
+import org.codehaus.jackson.annotate.JsonBackReference;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 @Entity
 @Table(name="questions")
@@ -22,20 +24,23 @@ public class Question {
 	private Long questionId;
 	
 	@Transient
-	private Long quizId;
+	private Long quizIdentifier;
 	
-	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="QuizId")
+	@ManyToOne
+	//@Cascade({CascadeType.ALL})
+    @JoinColumn(name="QuizId", nullable = false, updatable = true, insertable = true)
+	@JsonBackReference
 	private Quiz quiz;
 	
 	@Column(name="content")
+	@JsonIgnore
 	private String content;
-	
-	@Column(name="CorrectAnswers")
-	private String correctAnswers;
 	
 	@Column(name="Type")
 	private String type;
+	
+	@Column(name="Title")
+	private String title;
 	
 	@Transient
 	private List<Answer> answers;
@@ -49,14 +54,16 @@ public class Question {
 		this.questionId = questionId;
 	}
 
-	public Long getQuizId() {
-		return quizId;
+
+	public Long getQuizIdentifier() {
+		return quizIdentifier;
 	}
 
-	public void setQuizId(Long quizId) {
-		this.quizId = quizId;
+	public void setQuizIdentifier(Long quizIdentifier) {
+		this.quizIdentifier = quizIdentifier;
 	}
 
+	@JsonIgnore
 	public String getContent() {
 		return content;
 	}
@@ -65,13 +72,6 @@ public class Question {
 		this.content = content;
 	}
 
-	public String getCorrectAnswers() {
-		return correctAnswers;
-	}
-
-	public void setCorrectAnswers(String correctAnswers) {
-		this.correctAnswers = correctAnswers;
-	}
 
 	public String getType() {
 		return type;
@@ -90,6 +90,7 @@ public class Question {
 		this.answers = answers;
 	}
 
+	@JsonBackReference
 	public Quiz getQuiz() {
 		return quiz;
 	}
@@ -97,9 +98,14 @@ public class Question {
 	public void setQuiz(Quiz quiz) {
 		this.quiz = quiz;
 	}
-	
-	
-	
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}	
 	
 	
 }

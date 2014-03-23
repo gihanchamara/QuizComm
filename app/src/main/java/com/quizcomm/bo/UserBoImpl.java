@@ -33,9 +33,9 @@ public class UserBoImpl implements UserBo {
 		return userDao.getUserByPK(id);
 	}
 
-
-
-	
-
+	public User getUserByUserId(String userId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

@@ -1,5 +1,10 @@
 package com.quizcomm.controller;
 
+import java.io.IOException;
+import java.security.Principal;
+
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -32,12 +37,14 @@ public class QuizController {
 	
 	@RequestMapping(value="/createQuizJson",method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-	public  @ResponseBody String createQuizJson(@RequestBody Quiz quiz){
+	public  @ResponseBody Quiz createQuizJson(@RequestBody Quiz quiz) throws JsonGenerationException, JsonMappingException, IOException{
 		if(quiz!=null){
 			quiz.setOwner(userBo.getUserByPK(1L));
 		}
-		quizBo.createQuiz(quiz);
-		return "created";
+		quizBo.processQuiz(quiz);
+		Quiz createdQuiz = quizBo.createQuiz(quiz);
+		//createdQuiz.setOwner(null);
+		return createdQuiz;
 	}
 
 }

@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 @Entity
 @Table(name="user")
 public class User {
@@ -59,7 +61,8 @@ public class User {
 		return id;
 	}
 	
-	@OneToMany(mappedBy="owner",fetch = FetchType.LAZY)
+	@JsonBackReference
+	@OneToMany(mappedBy="owner",fetch = FetchType.EAGER)
     private Set<Quiz> quizzes;
 
 	public void setId(Long id) {

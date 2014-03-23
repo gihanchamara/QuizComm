@@ -15,8 +15,10 @@ public class QuizDaoImpl implements QuizDao {
 	private SessionFactory sessionFactory;
 	
 	@Transactional
-	public void createQuiz(Quiz quiz) {
-		getCurrentSession().save(quiz);
+	public Quiz createQuiz(Quiz quiz) {
+		//getCurrentSession().save(quiz);
+		getCurrentSession().saveOrUpdate(quiz);
+		return quiz;
 	}
 	
 	private Session getCurrentSession(){
