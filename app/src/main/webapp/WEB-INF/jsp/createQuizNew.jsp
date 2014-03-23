@@ -41,6 +41,35 @@
     CKEDITOR.replace('question_title');
 </script>
  -->
+ 
+ 
+ <script type="text/javascript">
+	function createtext()
+	{
+		console.log("Inside createtext");
+		var i=0;
+		var len1=document.getElementById('s');
+		var len2=len1.value;
+		console.log(len2);
+		for(i;i<len2;i++)
+		{
+			console.log(i);
+
+			var el= new Array();;
+			el[i]=document.createElement('input');
+			el[i].type='text';
+			el[i].name='text'+i;
+			el[i].size = 10;
+			console.log("after 10");
+
+			document.f1.appendChild(el[i]);
+			var mybr=document.createElement('BR');
+			document.f1.appendChild(mybr);
+		
+		}
+	}
+</script>
+
 <style type="text/css">
 		.fancybox-custom .fancybox-skin {
 			box-shadow: 0 0 50px #222;
@@ -148,6 +177,35 @@ body {
 
 
 
+#check_box_question_form_cb {
+	width: 600px;
+	margin-top: 25px;
+}
+
+#check_box_question_form_cb input[type=text], #check_box_question_form_cb textarea {
+	padding: 5px;
+	width: 471px;
+	font-family: Helvetica, sans-serif;
+	font-size: 1.4em;
+	margin: 0px 0px 10px 0px;
+	border: 2px solid #ccc;
+}
+
+#check_box_question_form_cb textarea {
+	height: 90px;
+}
+
+#check_box_question_form_cb textarea:focus, #check_box_question_form_cb input:focus {
+	border: 2px solid #900;
+}
+
+#check_box_question_form_cb input.submit-button {
+	width: 100px;
+	float: right;
+}
+
+
+
 </style>
 
 
@@ -164,8 +222,8 @@ body {
 	
 		<div id="content-left">
 			<ul class="question_types">
-				<li class="odd"><a id="add_chk_box_question" title="Add Question" href="#check_box_question_form">MCQ</a></li>
-				<li class="odd"><a id="add_chk_box_question_new" title="Add Question" href="#check_box_question_form_new">MCQ New</a></li>
+				<li class="odd"><a id="add_chk_box_question" title="Add Question" href="#check_box_question_form">MCQ Check Box</a></li>
+				<li class="odd"><a id="add_chk_box_question_cb" title="Add Question" href="#check_box_question_form_cb">MCQ Radio Button</a></li>
 			</ul> 
 		</div>
 		
@@ -174,7 +232,11 @@ body {
 		<table class="questionTable" id="questionTableId" cellpadding="0"	cellspacing="0" style="width: 100%;" border="0"></table>
 		</div>
 	</div>
-	<div id="footer"></div>
+	<div id="footer">
+		<form action="" method="get" name="f1">
+			<input type="text" id="s" name="s" value="" onChange="createtext()" >
+		</form>
+	</div>
 	<div id="bottom"></div>
 </div>
 
@@ -204,8 +266,43 @@ body {
 					        	<input type="checkbox" id="chk_answer_correct_4" name="chk_answer_correct_4"> 
 								<input type="text" id="chk_answer_text_4" name="chk_answer_text_4" />
 								<br>
-					        	<input type="checkbox" id="chk_answer_correct_5" name="chk_answer_correct_5"> 
-								<input type="text" id="chk_answer_text_5" name="chk_answer_text_5" />
+					 </div>
+					 <div>
+			        	<button id="add_more_check_box_question"> Add </button> 
+			        	<button id="save_check_box_question"> Save </button> 
+					</div>
+					
+			    </fieldset>
+		</form>
+		
+		
+	</div>
+	
+	
+	
+	
+<!--  Question forms -->
+	<div style="display: none">
+		<form id="check_box_question_form_cb" onsubmit="return false;" >
+		
+				<fieldset>
+			        <legend>Question Title</legend>
+			        <!--  <textarea class="ckeditor" id="question_title" name="question_title" rows="5" cols="15"></textarea>-->
+			      	<input type="text" id="question_title" name="question_title" /> 
+			        
+			        <div id="check_box_question_set">
+				       		<legend>Answers</legend>
+					        	<input type="radio" id="chk_answer_correct_1" name="chk_answer_correct_1"> 
+								<input type="text" id="chk_answer_text_1" name="chk_answer_text_1" />
+								<br>
+					        	<input type="radio" id="chk_answer_correct_2" name="chk_answer_correct_2"> 
+								<input type="text" id="chk_answer_text_2" name="chk_answer_text_2" />
+								<br>
+					        	<input type="radio" id="chk_answer_correct_3" name="chk_answer_correct_3"> 
+								<input type="text" id="chk_answer_text_3" name="chk_answer_text_3" />
+								<br>
+					        	<input type="radio" id="chk_answer_correct_4" name="chk_answer_correct_4"> 
+								<input type="text" id="chk_answer_text_4" name="chk_answer_text_4" />
 								<br>
 					 </div>
 					 <div>
@@ -217,31 +314,9 @@ body {
 		</form>
 		
 		
-		
-		<div  style="display: none">
-			
-		<form id="check_box_question_form_new" onsubmit="return false;" >
-		
-				<label for="Name">Name:</label>
-				<input type="text" name="Name" id="Name" />
-				
-				<label for="City">City:</label>
-				<input type="text" name="City" id="City" />
-	
-				<label for="Email">Email:</label>
-				<input type="text" name="Email" id="Email" />
-				
-				<label for="Message">Message:</label><br />
-				<textarea name="Message" rows="20" cols="20" id="Message"></textarea>
-
-				<input type="submit" name="submit" value="Submit" class="submit-button" />
-			</form>
-			
-		</div>
-			
-
-		
 	</div>
+	
+
 	
 		
 </body>
