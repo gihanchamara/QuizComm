@@ -1,4 +1,4 @@
-var quiz = {}
+var quiz = {};
 var questions = [];
 var questionCount = 0;
 
