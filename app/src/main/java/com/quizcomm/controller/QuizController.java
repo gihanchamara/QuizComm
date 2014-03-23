@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import com.quizcomm.bo.QuizBo;
 import com.quizcomm.bo.UserBo;
 import com.quizcomm.dom.Quiz;
+import com.quizcomm.dom.User;
 
 
 @Controller
@@ -30,14 +31,23 @@ public class QuizController {
 		return "createQuiz";
 	}
 	
+	
+	@RequestMapping(value="/createQuizNew",method=RequestMethod.GET)
+	public String loadCreateQuizNewPage(){
+		return "createQuizNew";
+	}
+	
 	@RequestMapping(value="/createQuizJson",method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
-	public  @ResponseBody String createQuizJson(@RequestBody Quiz quiz){
+	public  @ResponseBody Quiz createQuizJson(@RequestBody Quiz quiz){
 		if(quiz!=null){
-			quiz.setOwner(userBo.getUserByPK(1L));
+			User user = new User();
+			user.setId(1L);
+			quiz.setOwner(user);
 		}
 		quizBo.createQuiz(quiz);
-		return "created";
+		
+		return quiz;
 	}
 
 }
