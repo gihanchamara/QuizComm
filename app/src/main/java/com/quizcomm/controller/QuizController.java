@@ -35,6 +35,11 @@ public class QuizController {
 		return "createQuiz";
 	}
 	
+	@RequestMapping(value="/createQuizNew",method=RequestMethod.GET)
+	public String loadCreateQuizNewPage(){
+		return "createQuizNew";
+	}
+	
 	@RequestMapping(value="/createQuizJson",method=RequestMethod.POST)
 	@ResponseStatus(HttpStatus.OK)
 	public  @ResponseBody Quiz createQuizJson(@RequestBody Quiz quiz) throws JsonGenerationException, JsonMappingException, IOException{
